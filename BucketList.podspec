@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BucketList'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Just another cache provider with security built in'
 
   s.description  = <<-DESC
@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
   s.source_files = 'BucketList/Classes/**/*'
-  s.dependency 'RNCryptor'
+  s.dependency 'RNCryptor', '~> 5.0'
 
 end
