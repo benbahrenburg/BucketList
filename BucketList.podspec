@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BucketList'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'Just another cache provider with security built in'
 
   s.description  = <<-DESC
