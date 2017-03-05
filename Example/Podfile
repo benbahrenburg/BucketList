@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BucketList_Example' do
+  pod 'BucketList', :path => '../'
+
+  target 'BucketList_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
