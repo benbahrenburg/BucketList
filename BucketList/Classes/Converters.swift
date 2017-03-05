@@ -1,10 +1,11 @@
 //
+//  BucketList - Just another cache provider with security built in
 //  Converters.swift
-//  Pods
 //
-//  Created by Ben Bahrenburg on 3/4/17.
+//  Created by Ben Bahrenburg on 3/23/16.
+//  Copyright © 2016 bencoding.com. All rights reserved.
 //
-//
+
 
 import Foundation
 import ImageIO
@@ -16,11 +17,17 @@ import MobileCoreServices
  
  */
 internal struct Converters {
+    static func UIImageJPEGRepresentation2(image: UIImage, compression: CGFloat) -> Data? {
+        return autoreleasepool(invoking: { () -> Data? in
+            return UIImageJPEGRepresentation(image, compression)
+        })
+    }
+    
     static func convertImage(image: UIImage, option: CacheOptions.imageConverter) -> Data? {
         if option == .imageIO {
             return UIImageToDataIO(image: image)
         }
-        return UIImageJPEGRepresentation(image, 1)
+        return UIImageJPEGRepresentation2(image: image, compression: 0.9)
     }
     
     fileprivate static func UIImageToDataIO(image: UIImage) -> Data? {

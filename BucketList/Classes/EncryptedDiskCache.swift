@@ -22,7 +22,7 @@ public final class EncryptedDiskCache: SecureBucket {
     
     var emptyOnUnload: Bool = true
     
-    var imageConverterOption: CacheOptions.imageConverter = .imageIO
+    var imageConverterOption: CacheOptions.imageConverter = .jpegRepresentation
     
     public init(cacheName: String = UUID().uuidString) {
         _cacheName = cacheName

@@ -1,11 +1,10 @@
 //
+//  BucketList - Just another cache provider with security built in
 //  CacheOptions.swift
-//  Pods
 //
-//  Created by Ben Bahrenburg on 3/4/17.
+//  Created by Ben Bahrenburg on 3/23/16.
+//  Copyright © 2016 bencoding.com. All rights reserved.
 //
-//
-
 import Foundation
 
 /**

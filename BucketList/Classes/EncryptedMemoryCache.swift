@@ -20,7 +20,7 @@ public final class EncryptedMemoryCache: SecureBucket {
     
     fileprivate var cache: NSCache =  NSCache<NSString, AnyObject>()
     
-    var imageConverterOption: CacheOptions.imageConverter = .imageIO
+    var imageConverterOption: CacheOptions.imageConverter = .jpegRepresentation
 
     public init() {}
     
