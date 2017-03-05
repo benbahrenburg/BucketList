@@ -146,7 +146,7 @@ print("All items removed from cache? \(allRemoved)")
 
 ## Dependencies
 
-* All of the encrypted providers use (RNCryptor)[https://github.com/RNCryptor/RNCryptor].
+* All of the encrypted providers use [RNCryptor](https://github.com/RNCryptor/RNCryptor).
 
 
 ## Author
