@@ -29,18 +29,18 @@ public final class EncryptedMemoryCache: SecureBucket {
     }
     
     @discardableResult public func add(secret: String, forKey: String, object: AnyObject) throws -> Bool {
-        return try autoreleasepool { () -> Bool in
+        return autoreleasepool { () -> Bool in
             let data = NSKeyedArchiver.archivedData(withRootObject: object)
-            let toStore = try getEncryptedData(secret: secret, data: data)
+            let toStore = getEncryptedData(secret: secret, data: data)
             cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
             return true
         }
     }
     
     @discardableResult public func add(secret: String, forKey: String, image: UIImage) throws -> Bool {
-        return try autoreleasepool { () -> Bool in
+        return autoreleasepool { () -> Bool in
             if let data = Converters.convertImage(image: image, option: imageConverterOption) {
-                let toStore = try getEncryptedData(secret: secret, data: data)
+                let toStore = getEncryptedData(secret: secret, data: data)
                 cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
                 return true
             }
@@ -49,8 +49,8 @@ public final class EncryptedMemoryCache: SecureBucket {
     }
     
     @discardableResult public func add(secret: String, forKey: String, data: Data) throws -> Bool {
-        return try autoreleasepool { () -> Bool in
-            let toStore = try getEncryptedData(secret: secret, data: data)
+        return autoreleasepool { () -> Bool in
+            let toStore = getEncryptedData(secret: secret, data: data)
             cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
             return true
         }
@@ -106,8 +106,8 @@ public final class EncryptedMemoryCache: SecureBucket {
         }
     }
     
-    fileprivate func getEncryptedData(secret: String, data: Data) throws -> Data {
-        return try autoreleasepool { () -> Data in
+    fileprivate func getEncryptedData(secret: String, data: Data) -> Data {
+        return autoreleasepool { () -> Data in
             let encryptor = RNCryptor.Encryptor(password: secret)
             let encrypt = NSMutableData()
             encrypt.append(encryptor.update(withData: data))
