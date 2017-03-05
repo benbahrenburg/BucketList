@@ -58,7 +58,7 @@ BucketList makes it easy to save items into cache.  Below is an example on how t
 ```swift
 //Let's create an instance of the EncryptedDiskCache provider
 //The first things we need to do is create a caching name. This will be the folder the files are cached within.
-let cache = EncryptedDiskCache("foo")
+let cache = EncryptedDiskCache(cacheName: "foo")
 
 //Now let's add a image to cache
 let myImage = .....
@@ -84,7 +84,7 @@ You can easily get items from cache.  Below is an example on how to do this usin
 ```swift
 //Let's create an instance of the EncryptedDiskCache provider
 //The first things we need to do is create a caching name. This will be the folder the files are cached within.
-let cache = EncryptedDiskCache("foo")
+let cache = EncryptedDiskCache(cacheName: "foo")
 
 //Let's get our image from cache
 let myImage = cache.getImage(secret: "a password", forKey: "my-secret-image") 
@@ -105,7 +105,7 @@ You can easily check if items are already in cache using the exist function.  Be
 ```swift
 //Let's create an instance of the EncryptedDiskCache provider
 //The first things we need to do is create a caching name. This will be the folder the files are cached within.
-let cache = EncryptedDiskCache("foo")
+let cache = EncryptedDiskCache(cacheName: "foo")
 
 let isThere = cache.exists(forKey: "my-secret-image")
 print("Is my image already in cache? \(isThere)")
@@ -119,7 +119,7 @@ You can also remove items from cache.  Below is an example on how to do this usi
 ```swift
 //Let's create an instance of the EncryptedDiskCache provider
 //The first things we need to do is create a caching name. This will be the folder the files are cached within.
-let cache = EncryptedDiskCache("foo")
+let cache = EncryptedDiskCache(cacheName: "foo")
 
 let wasRemoved = cache.remove(forKey: "my-secret-image")
 print("Is my image was removed from cache? \(wasRemoved)")
@@ -133,7 +133,7 @@ You can empty all of your cache items easily.  Below is an example on how to do 
 ```swift
 //Let's create an instance of the EncryptedDiskCache provider
 //The first things we need to do is create a caching name. This will be the folder the files are cached within.
-let cache = EncryptedDiskCache("foo")
+let cache = EncryptedDiskCache(cacheName: "foo")
 
 let allRemoved = cache.empty()
 print("All items removed from cache? \(allRemoved)")

@@ -14,6 +14,7 @@ import RNCryptor
  Encrypted File Based Cache Provider
  
  */
+
 public final class EncryptedDiskCache: SecureBucket {
     
     fileprivate let _cacheName: String
@@ -23,7 +24,7 @@ public final class EncryptedDiskCache: SecureBucket {
     
     var imageConverterOption: CacheOptions.imageConverter = .imageIO
     
-    public init(_ cacheName: String) {
+    public init(cacheName: String = UUID().uuidString) {
         _cacheName = cacheName
         let dir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         _directoryURL = dir.appendingPathComponent(_cacheName)
