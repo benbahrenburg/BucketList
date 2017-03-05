@@ -1,16 +1,27 @@
 //
+//  BucketList - Just another cache provider with security built in
 //  DictionaryCache.swift
-//  Pods
 //
-//  Created by Ben Bahrenburg on 3/4/17.
-//
+//  Created by Ben Bahrenburg on 3/23/16.
+//  Copyright © 2016 bencoding.com. All rights reserved.
 //
 
 import Foundation
 
+/**
+ 
+ Caching provider based on NSMutableDictionary
+ 
+ */
 public class DictionaryCache: Bucket {
     
     fileprivate var cache: NSMutableDictionary = NSMutableDictionary()
+
+    public init() {}
+    
+    deinit {
+        cache.removeAllObjects()
+    }
     
     @discardableResult public func add(forKey: String, object: AnyObject) -> Bool {
         cache.setObject(object, forKey: forKey as NSString)
@@ -65,7 +76,7 @@ public class DictionaryCache: Bucket {
     }
     
     public func exists(forKey: String) -> Bool {
-        if let _ = getObject(forKey: forKey) {
+        if let _ = cache.object(forKey: forKey as NSString) {
             return true
         }
         return false

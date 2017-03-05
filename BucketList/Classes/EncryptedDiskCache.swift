@@ -1,32 +1,29 @@
 //
+//  BucketList - Just another cache provider with security built in
 //  EncryptedDiskCache.swift
-//  Pods
 //
-//  Created by Ben Bahrenburg on 3/4/17.
-//
+//  Created by Ben Bahrenburg on 3/23/16.
+//  Copyright © 2016 bencoding.com. All rights reserved.
 //
 
 import Foundation
 import RNCryptor
-import ImageIO
-import MobileCoreServices
 
+/**
+ 
+ Encrypted File Based Cache Provider
+ 
+ */
 public final class EncryptedDiskCache: SecureBucket {
     
     fileprivate let _cacheName: String
     fileprivate let _directoryURL: URL
     
-    enum imageConverter {
-        case imageIO
-        case jpegRepresentation
-        
-    }
-    
     var emptyOnUnload: Bool = true
     
-    var imageConverterOption: imageConverter = .imageIO
+    var imageConverterOption: CacheOptions.imageConverter = .imageIO
     
-    public init(cacheName: String) {
+    public init(_ cacheName: String) {
         _cacheName = cacheName
         let dir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         _directoryURL = dir.appendingPathComponent(_cacheName)
@@ -46,10 +43,11 @@ public final class EncryptedDiskCache: SecureBucket {
         }
     }
     
-    @discardableResult public func add(secret: String, forKey: String, object: AnyObject) -> Bool {
-        return autoreleasepool { () -> Bool in
+    @discardableResult public func add(secret: String, forKey: String, object: AnyObject) throws -> Bool {
+        return try autoreleasepool { () -> Bool in
             let fileURL = getPathForKey(forKey: forKey)
-            NSKeyedArchiver.archiveRootObject(object, toFile: fileURL.path)
+            let data = NSKeyedArchiver.archivedData(withRootObject: object)
+            try writeEncrypted(secret: secret, path: fileURL, data: data)
             return true
         }
     }
@@ -57,10 +55,11 @@ public final class EncryptedDiskCache: SecureBucket {
     @discardableResult public func add(secret: String, forKey: String, image: UIImage) throws -> Bool {
         return try autoreleasepool { () -> Bool in
             let fileURL = getPathForKey(forKey: forKey)
-            if let data = convertImage(image: image) {
+            if let data = Converters.convertImage(image: image, option: imageConverterOption) {
                 try writeEncrypted(secret: secret, path: fileURL, data: data)
+                return true
             }
-            return true
+            return false
         }
     }
     
@@ -72,37 +71,28 @@ public final class EncryptedDiskCache: SecureBucket {
         }
     }
     
-    public func getObject(secret: String, forKey: String) -> AnyObject? {
+    public func getObject(secret: String, forKey: String) throws -> AnyObject? {
         if exists(forKey: forKey) {
             let fileURL = getPathForKey(forKey: forKey)
-            return NSKeyedUnarchiver.unarchiveObject(withFile: fileURL.path) as AnyObject?
+            let data = try readEncrypted(secret: secret, path: fileURL)
+            return NSKeyedUnarchiver.unarchiveObject(with: data) as AnyObject?
         }
         return nil
     }
     
-    public func getData(secret: String, forKey: String) -> Data? {
+    public func getData(secret: String, forKey: String) throws -> Data? {
         if exists(forKey: forKey) {
             let fileURL = getPathForKey(forKey: forKey)
-            do {
-                return try readEncrypted(secret: secret, path: fileURL)
-            } catch {
-                print("Could not load from cache: \(error)")
-                return nil
-            }
+            return try readEncrypted(secret: secret, path: fileURL)
         }
         return nil
     }
     
-    public func getImage(secret: String, forKey: String) -> UIImage? {
+    public func getImage(secret: String, forKey: String) throws -> UIImage? {
         if exists(forKey: forKey) {
             let fileURL = getPathForKey(forKey: forKey)
-            do {
-                let data = try readEncrypted(secret: secret, path: fileURL)
-                return UIImage(data: data)
-            } catch {
-                print("Could not load from cache: \(error)")
-                return nil
-            }
+            let data = try readEncrypted(secret: secret, path: fileURL)
+            return UIImage(data: data)
         }
         return nil
     }
@@ -152,64 +142,6 @@ public final class EncryptedDiskCache: SecureBucket {
             encrypt.append(encryptor.update(withData: data))
             encrypt.append(encryptor.finalData())
             try encrypt.write(to: path, options: [.atomicWrite, .completeFileProtection])
-        }
-    }
-    
-    fileprivate func convertImage(image: UIImage) -> Data? {
-        if imageConverterOption == .imageIO {
-            return UIImageToDataIO(image: image)
-        }
-        return UIImageJPEGRepresentation(image, 1)
-    }
-    
-    fileprivate func UIImageToDataIO(image: UIImage) -> Data? {
-        return autoreleasepool(invoking: { () -> Data in
-            let data = NSMutableData()
-            let options: NSDictionary = [
-                kCGImagePropertyOrientation: 1, // Top left
-                kCGImagePropertyHasAlpha: true,
-                kCGImageDestinationLossyCompressionQuality: 1.0
-            ]
-            
-            let imageDestinationRef = CGImageDestinationCreateWithData(data as CFMutableData, kUTTypeJPEG, 1, nil)!
-            CGImageDestinationAddImage(imageDestinationRef, image.cgImage!, options)
-            CGImageDestinationFinalize(imageDestinationRef)
-            
-            return data as Data
-        })
-    }
-}
-
-fileprivate struct FileHelpers {
-    
-    static func removeAll(url: URL) throws {
-        if exists(url: url) {
-            let path = url.path
-            let filePaths = try FileManager.default.contentsOfDirectory(atPath: path)
-            for filePath in filePaths {
-                let filePath = String(format:"%@/%@", path, filePath)
-                try remove(path: filePath)
-            }
-        }
-    }
-    
-    static func exists(path: String) -> Bool {
-        return FileManager.default.fileExists(atPath: path)
-    }
-    
-    static func exists(url: URL) -> Bool {
-        return FileManager.default.fileExists(atPath: url.path)
-    }
-    
-    static func remove(url: URL) throws {
-        if exists(url: url) {
-            try FileManager.default.removeItem(atPath: url.path)
-        }
-    }
-    
-    static func remove(path: String) throws {
-        if exists(path: path) {
-            try FileManager.default.removeItem(atPath: path)
         }
     }
 }

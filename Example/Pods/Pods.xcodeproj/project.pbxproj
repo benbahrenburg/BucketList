@@ -11,6 +11,10 @@
 		0B4BBB7070D4AAE16BF660B7FEFC70D9 /* RNCryptor-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BD0DCD5CB08657B2A675EBF5FFE390F /* RNCryptor-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C105427CA64D8B573BD2676DD319AAD /* Pods-BucketList_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 460EF8BC13ABEA53381F511E5FD6105D /* Pods-BucketList_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3E29723B1E6BD22600EFA15E /* Bucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E29723A1E6BD22600EFA15E /* Bucket.swift */; };
+		3EEE5CC31E6BDDBA00EC1AB0 /* EncryptedMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE5CC21E6BDDBA00EC1AB0 /* EncryptedMemoryCache.swift */; };
+		3EEE5CC51E6BDE1600EC1AB0 /* CacheOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE5CC41E6BDE1600EC1AB0 /* CacheOptions.swift */; };
+		3EEE5CC71E6BDFE300EC1AB0 /* FileHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE5CC61E6BDFE300EC1AB0 /* FileHelpers.swift */; };
+		3EEE5CC91E6BE02300EC1AB0 /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEE5CC81E6BE02300EC1AB0 /* Converters.swift */; };
 		43B4F8345F19A185E2568F6D9C20B790 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CC4B76EA5E922A8C3195955E4850A3 /* MemoryCache.swift */; };
 		459795AF0501F525BDF55F87929B40DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6F0F2C09A11B1685B94546A1AF8A68E /* Foundation.framework */; };
 		50D6D848B2C6B71F563B18C7A8286467 /* RNCryptor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0A55D87490EF64B04F2A4163F8BAB0 /* RNCryptor.framework */; };
@@ -64,6 +68,10 @@
 		3A0A55D87490EF64B04F2A4163F8BAB0 /* RNCryptor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RNCryptor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B164DF806DA48FFB58C712CAA4567C2 /* RNCryptor-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RNCryptor-dummy.m"; sourceTree = "<group>"; };
 		3E29723A1E6BD22600EFA15E /* Bucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bucket.swift; sourceTree = "<group>"; };
+		3EEE5CC21E6BDDBA00EC1AB0 /* EncryptedMemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptedMemoryCache.swift; sourceTree = "<group>"; };
+		3EEE5CC41E6BDE1600EC1AB0 /* CacheOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheOptions.swift; sourceTree = "<group>"; };
+		3EEE5CC61E6BDFE300EC1AB0 /* FileHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelpers.swift; sourceTree = "<group>"; };
+		3EEE5CC81E6BE02300EC1AB0 /* Converters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Converters.swift; sourceTree = "<group>"; };
 		460EF8BC13ABEA53381F511E5FD6105D /* Pods-BucketList_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BucketList_Tests-umbrella.h"; sourceTree = "<group>"; };
 		46D8535210FC23244BA56EC992129BE4 /* RNCryptor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
 		4BD0DCD5CB08657B2A675EBF5FFE390F /* RNCryptor-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RNCryptor-umbrella.h"; sourceTree = "<group>"; };
@@ -301,9 +309,13 @@
 			children = (
 				98624ECEB839AEA2219B3F4CA4232F5D /* SecureBucket.swift */,
 				B0A4466D4F27577C6F265A4FFEBED14F /* EncryptedDiskCache.swift */,
+				3EEE5CC21E6BDDBA00EC1AB0 /* EncryptedMemoryCache.swift */,
 				3E29723A1E6BD22600EFA15E /* Bucket.swift */,
 				B4CC4B76EA5E922A8C3195955E4850A3 /* MemoryCache.swift */,
 				E9AA74137F337F18CCAB5B6EAF046726 /* DictionaryCache.swift */,
+				3EEE5CC41E6BDE1600EC1AB0 /* CacheOptions.swift */,
+				3EEE5CC61E6BDFE300EC1AB0 /* FileHelpers.swift */,
+				3EEE5CC81E6BE02300EC1AB0 /* Converters.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -477,11 +489,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EEE5CC71E6BDFE300EC1AB0 /* FileHelpers.swift in Sources */,
 				B2D91D7BD9C7234BF269B6428999AB87 /* BucketList-dummy.m in Sources */,
 				992846DA9129D324A917C7088FDD24E6 /* DictionaryCache.swift in Sources */,
+				3EEE5CC31E6BDDBA00EC1AB0 /* EncryptedMemoryCache.swift in Sources */,
 				CF90411FFED9A64FD2B2C703A7E6E446 /* EncryptedDiskCache.swift in Sources */,
 				3E29723B1E6BD22600EFA15E /* Bucket.swift in Sources */,
+				3EEE5CC51E6BDE1600EC1AB0 /* CacheOptions.swift in Sources */,
 				43B4F8345F19A185E2568F6D9C20B790 /* MemoryCache.swift in Sources */,
+				3EEE5CC91E6BE02300EC1AB0 /* Converters.swift in Sources */,
 				E78DC42D448BC0B1E63C2D9813BDCC45 /* SecureBucket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
