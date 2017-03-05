@@ -17,17 +17,12 @@ import MobileCoreServices
  
  */
 internal struct Converters {
-    static func UIImageJPEGRepresentation2(image: UIImage, compression: CGFloat) -> Data? {
-        return autoreleasepool(invoking: { () -> Data? in
-            return UIImageJPEGRepresentation(image, compression)
-        })
-    }
     
     static func convertImage(image: UIImage, option: CacheOptions.imageConverter) -> Data? {
         if option == .imageIO {
             return UIImageToDataIO(image: image)
         }
-        return UIImageJPEGRepresentation2(image: image, compression: 0.9)
+        return UIImageJPEGRepresentation(image, 0.9)
     }
     
     fileprivate static func UIImageToDataIO(image: UIImage) -> Data? {
@@ -36,7 +31,7 @@ internal struct Converters {
             let options: NSDictionary = [
                 kCGImagePropertyOrientation: 1, // Top left
                 kCGImagePropertyHasAlpha: true,
-                kCGImageDestinationLossyCompressionQuality: 1.0
+                kCGImageDestinationLossyCompressionQuality: 0.9
             ]
             
             let imageDestinationRef = CGImageDestinationCreateWithData(data as CFMutableData, kUTTypeJPEG, 1, nil)!
