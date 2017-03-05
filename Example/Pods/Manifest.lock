@@ -1,0 +1,19 @@
+PODS:
+  - BucketList (0.1.0):
+    - RNCryptor
+  - RNCryptor (5.0.1)
+
+DEPENDENCIES:
+  - BucketList (from `../`)
+
+EXTERNAL SOURCES:
+  BucketList:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BucketList: 1b33cec173a479e2778fd9b7c7abf0ea8c93f69d
+  RNCryptor: 2e352a488779d1a9184ab629be22a7c5bc84acb5
+
+PODFILE CHECKSUM: e934952530253d3f1e1bdb603b4f691566f00403
+
+COCOAPODS: 1.2.0

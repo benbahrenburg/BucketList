@@ -1,0 +1,6 @@
+framework module BucketList {
+  umbrella header "BucketList-umbrella.h"
+
+  export *
+  module * { export * }
+}

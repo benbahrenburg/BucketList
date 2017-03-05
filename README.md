@@ -1,29 +1,44 @@
 # BucketList
 
-[![CI Status](http://img.shields.io/travis/ben.bahrenburg@gmail.com/BucketList.svg?style=flat)](https://travis-ci.org/ben.bahrenburg@gmail.com/BucketList)
-[![Version](https://img.shields.io/cocoapods/v/BucketList.svg?style=flat)](http://cocoapods.org/pods/BucketList)
-[![License](https://img.shields.io/cocoapods/l/BucketList.svg?style=flat)](http://cocoapods.org/pods/BucketList)
-[![Platform](https://img.shields.io/cocoapods/p/BucketList.svg?style=flat)](http://cocoapods.org/pods/BucketList)
+Need caching? Focused on security? BucketList makes working with encrypted caching easy. Also supports stand your standard key value caching as well.
 
-## Example
+## Features
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+* Encrypted Disk Caching
+* In Memory Caching
+* Encrypted In Memory Caching  [feature in process]
+
 
 ## Requirements
 
+* Xcode 8.2 or newer
+* Swift 3.0
+* iOS 10 or greater
+
 ## Installation
 
-BucketList is available through [CocoaPods](http://cocoapods.org). To install
+LockedBucket is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
+
 
 ```ruby
 pod "BucketList"
 ```
 
+__Carthage__
+
+```
+github "benbahrenburg/BucketList"
+```
+
+__Manually__
+
+Copy all `*.swift` files contained in `BucketList/Classes/` directory into your project. 
+
 ## Author
 
-ben.bahrenburg@gmail.com, ben.bahrenburg@gmail.com
+Ben Bahrenburg, [@bencoding](https://twitter.com/bencoding)
 
 ## License
 
-BucketList is available under the MIT license. See the LICENSE file for more info.
+LockedBucket is available under the MIT license. See the LICENSE file for more details.
