@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
   s.name             = 'BucketList'
   s.version          = '0.1.2'
-  s.summary          = 'Just another cache provider with security built in'
+  s.summary          = 'Memory and Disk Caching with Encryption options'
 
   s.description  = <<-DESC
     Need caching? Focused on security? BucketList makes working with encrypted caching easy. Also supports stand your standard key value caching as well.
