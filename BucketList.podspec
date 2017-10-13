@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BucketList'
-  s.version          = '0.1.2'
+  s.version          = '0.1.4'
   s.summary          = 'Memory and Disk Caching with Encryption options'
 
   s.description  = <<-DESC
