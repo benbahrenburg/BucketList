@@ -22,7 +22,8 @@ internal struct Converters {
         if option == .imageIO {
             return UIImageToDataIO(image: image)
         }
-        return UIImageJPEGRepresentation(image, 0.9)
+        
+        return image.jpegData(compressionQuality: 0.9)
     }
     
     fileprivate static func UIImageToDataIO(image: UIImage) -> Data? {

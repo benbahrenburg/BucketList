@@ -22,7 +22,7 @@
   "source_files": "BucketList/Classes/**/*",
   "dependencies": {
     "RNCryptor": [
-      "~> 5.0"
+
     ]
   }
 }

@@ -1,19 +1,23 @@
 PODS:
   - BucketList (0.1.4):
-    - RNCryptor (~> 5.0)
-  - RNCryptor (5.0.1)
+    - RNCryptor
+  - RNCryptor (5.0.3)
 
 DEPENDENCIES:
   - BucketList (from `../`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - RNCryptor
+
 EXTERNAL SOURCES:
   BucketList:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  BucketList: c6d0c9cd53297486bfb907b3258f67cc0eb99a3f
-  RNCryptor: 2e352a488779d1a9184ab629be22a7c5bc84acb5
+  BucketList: 6f53e9e588947f17b831f8aea4cfa1bb116d8a4f
+  RNCryptor: c93d19029dcf7ff160aca0f24d6c9e7b0d82f664
 
 PODFILE CHECKSUM: 6b5832be1ad73c3d6e14062ee392163bcb1f2e22
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3
