@@ -15,7 +15,7 @@ import Foundation
  */
 public class MemoryCache: Bucket {
     
-    fileprivate var cache: NSCache =  NSCache<NSString, AnyObject>()
+    private var cache: NSCache =  NSCache<NSString, AnyObject>()
 
     public init() {}
     
@@ -23,31 +23,31 @@ public class MemoryCache: Bucket {
         cache.removeAllObjects()
     }
     
-    @discardableResult public func add(forKey: String, object: AnyObject) -> Bool {
+    @discardableResult public func add(_ forKey: String, object: AnyObject) -> Bool {
         cache.setObject(object, forKey: forKey as NSString)
         return true
     }
     
-    @discardableResult public func add(forKey: String, image: UIImage) -> Bool {
+    @discardableResult public func add(_ forKey: String, image: UIImage) -> Bool {
         cache.setObject(image, forKey: forKey as NSString)
         return true
     }
     
-    @discardableResult public func add(forKey: String, data: Data) -> Bool {
+    @discardableResult public func add(_ forKey: String, data: Data) -> Bool {
         cache.setObject(data as AnyObject, forKey: forKey as NSString)
         return true
     }
     
-    public func getObject(forKey: String) -> AnyObject? {
-        if exists(forKey: forKey) {
+    public func getObject(_ forKey: String) -> AnyObject? {
+        if exists(forKey) {
             return cache.object(forKey: forKey as NSString)
         }
         return nil
     }
     
-    public func getData(forKey: String) -> Data? {
-        if exists(forKey: forKey) {
-            if let obj = getObject(forKey: forKey) {
+    public func getData(_ forKey: String) -> Data? {
+        if exists(forKey) {
+            if let obj = getObject(forKey) {
                 return obj as? Data
             }
             
@@ -55,9 +55,9 @@ public class MemoryCache: Bucket {
         return nil
     }
     
-    public func getImage(forKey: String) -> UIImage? {
-        if exists(forKey: forKey) {
-            if let obj = getObject(forKey: forKey) {
+    public func getImage(_ forKey: String) -> UIImage? {
+        if exists(forKey) {
+            if let obj = getObject(forKey) {
                 return UIImage(data: obj as! Data)
             }
             
@@ -65,7 +65,7 @@ public class MemoryCache: Bucket {
         return nil
     }
     
-    @discardableResult public func remove(forKey: String) -> Bool {
+    @discardableResult public func remove(_ forKey: String) -> Bool {
         cache.removeObject(forKey: forKey as NSString)
         return true
     }
@@ -75,7 +75,7 @@ public class MemoryCache: Bucket {
         return true
     }
     
-    public func exists(forKey: String) -> Bool {
+    public func exists(_ forKey: String) -> Bool {
         if let _ = cache.object(forKey: forKey as NSString) {
             return true
         }

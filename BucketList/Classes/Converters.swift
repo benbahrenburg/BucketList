@@ -18,15 +18,15 @@ import MobileCoreServices
  */
 internal struct Converters {
     
-    static func convertImage(image: UIImage, option: CacheOptions.imageConverter) -> Data? {
+    static func convertImage(_ image: UIImage, option: CacheOptions.imageConverter) -> Data? {
         if option == .imageIO {
-            return UIImageToDataIO(image: image)
+            return UIImageToDataIO(image)
         }
         
         return image.jpegData(compressionQuality: 0.9)
     }
     
-    fileprivate static func UIImageToDataIO(image: UIImage) -> Data? {
+    fileprivate static func UIImageToDataIO(_ image: UIImage) -> Data? {
         return autoreleasepool(invoking: { () -> Data in
             let data = NSMutableData()
             let options: NSDictionary = [

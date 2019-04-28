@@ -18,8 +18,7 @@ import MobileCoreServices
  */
 public final class EncryptedMemoryCache: SecureBucket {
     
-    fileprivate var cache: NSCache =  NSCache<NSString, AnyObject>()
-    
+    private var cache: NSCache =  NSCache<NSString, AnyObject>()
     var imageConverterOption: CacheOptions.imageConverter = CacheOptions.imageConverter.jpegRepresentation
 
     public init() {}
@@ -28,19 +27,19 @@ public final class EncryptedMemoryCache: SecureBucket {
         cache.removeAllObjects()
     }
     
-    @discardableResult public func add(secret: String, forKey: String, object: AnyObject) throws -> Bool {
+    @discardableResult public func add(_ secret: String, forKey: String, object: AnyObject) throws -> Bool {
         return autoreleasepool { () -> Bool in
             let data = NSKeyedArchiver.archivedData(withRootObject: object)
-            let toStore = getEncryptedData(secret: secret, data: data)
+            let toStore = getEncryptedData(secret, data: data)
             cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
             return true
         }
     }
     
-    @discardableResult public func add(secret: String, forKey: String, image: UIImage) throws -> Bool {
+    @discardableResult public func add(_ secret: String, forKey: String, image: UIImage) throws -> Bool {
         return autoreleasepool { () -> Bool in
-            if let data = Converters.convertImage(image: image, option: imageConverterOption) {
-                let toStore = getEncryptedData(secret: secret, data: data)
+            if let data = Converters.convertImage(image, option: imageConverterOption) {
+                let toStore = getEncryptedData(secret, data: data)
                 cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
                 return true
             }
@@ -48,38 +47,38 @@ public final class EncryptedMemoryCache: SecureBucket {
         }
     }
     
-    @discardableResult public func add(secret: String, forKey: String, data: Data) throws -> Bool {
+    @discardableResult public func add(_ secret: String, forKey: String, data: Data) throws -> Bool {
         return autoreleasepool { () -> Bool in
-            let toStore = getEncryptedData(secret: secret, data: data)
+            let toStore = getEncryptedData(secret, data: data)
             cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
             return true
         }
     }
     
-    public func getObject(secret: String, forKey: String) throws -> AnyObject? {
-        if let data = try getData(secret: secret, forKey: forKey) {
+    public func getObject(_ secret: String, forKey: String) throws -> AnyObject? {
+        if let data = try getData(secret, forKey: forKey) {
             return NSKeyedUnarchiver.unarchiveObject(with: data) as AnyObject?
         }
         return nil
     }
     
-    public func getData(secret: String, forKey: String) throws -> Data? {
-        if exists(forKey: forKey) {
+    public func getData(_ secret: String, forKey: String) throws -> Data? {
+        if exists(forKey) {
             if let obj = cache.object(forKey: forKey as NSString) {
-                return try readEncrypted(secret: secret, data: obj as! Data)
+                return try readEncrypted(secret, data: obj as! Data)
             }
         }
         return nil
     }
     
-    public func getImage(secret: String, forKey: String) throws -> UIImage? {
-        if let data = try getData(secret: secret, forKey: forKey) {
+    public func getImage(_ secret: String, forKey: String) throws -> UIImage? {
+        if let data = try getData(secret, forKey: forKey) {
             return UIImage(data: data)
         }
         return nil
     }
     
-    @discardableResult public func remove(forKey: String) throws -> Bool {
+    @discardableResult public func remove(_ forKey: String) throws -> Bool {
         cache.removeObject(forKey: forKey as NSString)
         return true
     }
@@ -89,14 +88,14 @@ public final class EncryptedMemoryCache: SecureBucket {
         return true
     }
     
-    public func exists(forKey: String) -> Bool {
+    public func exists(_ forKey: String) -> Bool {
         if let _ = cache.object(forKey: forKey as NSString) {
             return true
         }
         return false
     }
     
-    fileprivate func readEncrypted(secret: String, data: Data) throws -> Data {
+    private func readEncrypted(_ secret: String, data: Data) throws -> Data {
         return try autoreleasepool { () -> Data in
             let output = NSMutableData()
             let decryptor = RNCryptor.Decryptor(password: secret)
@@ -106,7 +105,7 @@ public final class EncryptedMemoryCache: SecureBucket {
         }
     }
     
-    fileprivate func getEncryptedData(secret: String, data: Data) -> Data {
+    private func getEncryptedData(_ secret: String, data: Data) -> Data {
         return autoreleasepool { () -> Data in
             let encryptor = RNCryptor.Encryptor(password: secret)
             let encrypt = NSMutableData()

@@ -1,5 +1,5 @@
 PODS:
-  - BucketList (0.1.4):
+  - BucketList (0.1.5):
     - RNCryptor
   - RNCryptor (5.0.3)
 
@@ -15,9 +15,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BucketList: 6f53e9e588947f17b831f8aea4cfa1bb116d8a4f
+  BucketList: 4d45604114ab5688cb8de498f00f8fa25ab779cf
   RNCryptor: c93d19029dcf7ff160aca0f24d6c9e7b0d82f664
 
 PODFILE CHECKSUM: 6b5832be1ad73c3d6e14062ee392163bcb1f2e22
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0

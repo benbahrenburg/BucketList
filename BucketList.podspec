@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BucketList'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'Memory and Disk Caching with Encryption options'
 
   s.description  = <<-DESC
@@ -15,7 +15,8 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/bencoding'
 
   s.ios.deployment_target = '11.0'
+  s.swift_version = "5.0"
   s.source_files = 'BucketList/Classes/**/*'
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
   s.dependency 'RNCryptor'
-
 end

@@ -20,7 +20,7 @@ public protocol SecureBucket {
      - Parameter object: The object to be cached
      - Returns: True if the object was successfully added to cache
      */
-    @discardableResult func add(secret: String, forKey: String, object: AnyObject) throws -> Bool
+    @discardableResult func add(_ secret: String, forKey: String, object: AnyObject) throws -> Bool
     /**
      Adds a UIImage to secure cache provider
      
@@ -29,7 +29,7 @@ public protocol SecureBucket {
      - Parameter image: The image to be cached
      - Returns: True if the image was successfully added to cache
      */
-    @discardableResult func add(secret: String, forKey: String, image: UIImage) throws -> Bool
+    @discardableResult func add(_ secret: String, forKey: String, image: UIImage) throws -> Bool
     /**
      Adds Data to secure cache provider
      
@@ -38,7 +38,7 @@ public protocol SecureBucket {
      - Parameter data: The data to be cached
      - Returns: True if the data was successfully added to cache
      */
-    @discardableResult func add(secret: String, forKey: String, data: Data) throws -> Bool
+    @discardableResult func add(_ secret: String, forKey: String, data: Data) throws -> Bool
     /**
      Returns AnyObject? (optional) for a provided key. Nil is returned if no cache value is found.
      
@@ -46,7 +46,7 @@ public protocol SecureBucket {
      - Parameter forKey: The cache key for the cached AnyObject
      - Returns: AnyObject? (optional) for the provided cache key
      */
-    func getObject(secret: String, forKey: String) throws -> AnyObject?
+    func getObject(_ secret: String, forKey: String) throws -> AnyObject?
     /**
      Returns Data? (optional) for a provided key. Nil is returned if no cache value is found.
      
@@ -54,7 +54,7 @@ public protocol SecureBucket {
      - Parameter forKey: The cache key for the cached Data
      - Returns: Data? (optional) for the provided cache key
      */
-    func getData(secret: String, forKey: String) throws -> Data?
+    func getData(_ secret: String, forKey: String) throws -> Data?
     /**
      Returns UIImage? (optional) for a provided key. Nil is returned if no cache value is found.
      
@@ -62,14 +62,14 @@ public protocol SecureBucket {
      - Parameter forKey: The cache key for the cached UIImage
      - Returns: UIImage? (optional) for the provided cache key
      */
-    func getImage(secret: String, forKey: String) throws -> UIImage?
+    func getImage(_ secret: String, forKey: String) throws -> UIImage?
     /**
      Removes item from cached.
      
      - Parameter forKey: The cache key for the cached UIImage
      - Returns: True if the cached value is successfully removed
      */
-    @discardableResult func remove(forKey: String) throws -> Bool
+    @discardableResult func remove(_ forKey: String) throws -> Bool
     /**
      Removes all values from cache
      
@@ -83,5 +83,5 @@ public protocol SecureBucket {
      - Parameter forKey: The key to check if a cached value exists
      - Returns: True if a cached value exists
      */
-    func exists(forKey: String) -> Bool
+    func exists(_ forKey: String) -> Bool
 }

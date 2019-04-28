@@ -14,33 +14,33 @@ import Foundation
  
  */
 internal struct FileHelpers {    
-    static func removeAll(url: URL) throws {
-        if exists(url: url) {
+    static func removeAll(_ url: URL) throws {
+        if exists(url) {
             let path = url.path
             let filePaths = try FileManager.default.contentsOfDirectory(atPath: path)
             for filePath in filePaths {
                 let filePath = String(format:"%@/%@", path, filePath)
-                try remove(path: filePath)
+                try remove(filePath)
             }
         }
     }
     
-    static func exists(path: String) -> Bool {
+    static func exists(_ path: String) -> Bool {
         return FileManager.default.fileExists(atPath: path)
     }
     
-    static func exists(url: URL) -> Bool {
+    static func exists(_ url: URL) -> Bool {
         return FileManager.default.fileExists(atPath: url.path)
     }
     
-    static func remove(url: URL) throws {
-        if exists(url: url) {
+    static func remove(_ url: URL) throws {
+        if exists(url) {
             try FileManager.default.removeItem(atPath: url.path)
         }
     }
     
-    static func remove(path: String) throws {
-        if exists(path: path) {
+    static func remove(_ path: String) throws {
+        if exists(path) {
             try FileManager.default.removeItem(atPath: path)
         }
     }

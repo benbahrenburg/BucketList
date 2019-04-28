@@ -1,6 +1,6 @@
 {
   "name": "BucketList",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "summary": "Memory and Disk Caching with Encryption options",
   "description": "Need caching? Focused on security? BucketList makes working with encrypted caching easy. Also supports stand your standard key value caching as well.",
   "homepage": "https://github.com/benbahrenburg/BucketList",
@@ -13,11 +13,11 @@
   },
   "source": {
     "git": "https://github.com/benbahrenburg/BucketList.git",
-    "tag": "0.1.4"
+    "tag": "0.1.5"
   },
   "social_media_url": "https://twitter.com/bencoding",
   "platforms": {
-    "ios": "10.0"
+    "ios": "11.0"
   },
   "source_files": "BucketList/Classes/**/*",
   "dependencies": {
