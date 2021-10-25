@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/benbahrenburg/BucketList.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/bencoding'
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '14.0'
   s.swift_version = "5.0"
   s.source_files = 'BucketList/Classes/**/*'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }

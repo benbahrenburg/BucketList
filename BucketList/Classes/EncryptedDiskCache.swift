@@ -46,7 +46,9 @@ public final class EncryptedDiskCache: SecureBucket {
     @discardableResult public func add(_ secret: String, forKey: String, object: AnyObject) throws -> Bool {
         return try autoreleasepool { () -> Bool in
             let fileURL = getPathForKey(forKey)
-            let data = NSKeyedArchiver.archivedData(withRootObject: object)
+            guard let data: Data = try? NSKeyedArchiver.archivedData(withRootObject: object, requiringSecureCoding: true) else {
+                return false
+            }
             try writeEncrypted(secret, path: fileURL, data: data)
             return true
         }
@@ -75,7 +77,9 @@ public final class EncryptedDiskCache: SecureBucket {
         if exists(forKey) {
             let fileURL = getPathForKey(forKey)
             let data = try readEncrypted(secret, path: fileURL)
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as AnyObject?
+            if let obj = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as AnyObject? {
+                return obj
+            }
         }
         return nil
     }

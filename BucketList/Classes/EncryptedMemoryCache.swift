@@ -6,10 +6,9 @@
 //  Copyright © 2016 bencoding.com. All rights reserved.
 //
 
-import Foundation
-import RNCryptor
 import ImageIO
-import MobileCoreServices
+import RNCryptor
+import Foundation
 
 /**
  
@@ -29,7 +28,9 @@ public final class EncryptedMemoryCache: SecureBucket {
     
     @discardableResult public func add(_ secret: String, forKey: String, object: AnyObject) throws -> Bool {
         return autoreleasepool { () -> Bool in
-            let data = NSKeyedArchiver.archivedData(withRootObject: object)
+            guard let data: Data = try? NSKeyedArchiver.archivedData(withRootObject: object, requiringSecureCoding: true) else {
+                return false
+            }
             let toStore = getEncryptedData(secret, data: data)
             cache.setObject(toStore as AnyObject, forKey: forKey as NSString)
             return true
@@ -57,7 +58,9 @@ public final class EncryptedMemoryCache: SecureBucket {
     
     public func getObject(_ secret: String, forKey: String) throws -> AnyObject? {
         if let data = try getData(secret, forKey: forKey) {
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as AnyObject?
+            if let obj = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as AnyObject? {
+                return obj
+            }
         }
         return nil
     }
